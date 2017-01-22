@@ -81,16 +81,14 @@ public class MainApp extends Application {
 		
 				
 		doButton.setOnAction(new EventHandler<ActionEvent>() {//po wciśnięciu przycisku wykonuje się "właściwa" część programu
-            public void handle(ActionEvent e) {
+           	public void handle(ActionEvent e) {
             	
             	
                 if ( !(portField.getText().equals("")) && !(ipField.getText().equals("") )) {//jeśli pola IP i nr portu nie są puste
-            		
-            		
-            		String ipAddress = ipField.getText();//pobieram adres IP i nr portu
-            		String portAddress = portField.getText();
-            		            		
-            		            		            		
+        		
+            	    String ipAddress = ipField.getText();//pobieram adres IP i nr portu
+            	    String portAddress = portField.getText();
+	            		            		
                     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
                     videoCapture = new VideoCapture(); //otwieram kamerę wbudowaną w laptopie
@@ -102,8 +100,7 @@ public class MainApp extends Application {
                     else{
                     	cameraLabel.setText("Camera open succes");
                     }
-            		
-                      
+                  
                     Thread t= new Thread(() -> {//tworzę wątek, który będzie obsługiwał połączenie i wysyłał obraz
                     	
                     int port= 0;
@@ -122,16 +119,16 @@ public class MainApp extends Application {
                              public void handle(WindowEvent we) {
                             	 try {
                             		output.writeInt(55);//(-20); //wysyłam 55 do serwera, żeby wiedział, że zamykam program (a tym samym streaming)
-									socket.close();
-									System.out.println("Stage is closing");
-									Thread.currentThread().interrupt();
-									stage.close();
-									return;
-                           		    
-								} catch (IOException e) {
-									System.out.println("Error");
-									e.printStackTrace();
-								}
+					socket.close();
+					System.out.println("Stage is closing");
+					Thread.currentThread().interrupt();
+					stage.close();
+					return;
+                           		  
+				} catch (IOException e) {
+					System.out.println("Error");
+					e.printStackTrace();
+				}
                               }
                          }); 
                     	
@@ -165,23 +162,22 @@ public class MainApp extends Application {
                     		
                    			//System.out.println(encoded_list.length);
                    			                   			
-                   			for (int i = 0; i < total_pack; i++){ //wysyłanie klatki w postaci kilku paczek
-                   				byte[] encoded_splitted = Arrays.copyOfRange(encoded_list,i*1200,(i+1)*1200);
-                                output.write(encoded_splitted);
+                   		for (int i = 0; i < total_pack; i++){ //wysyłanie klatki w postaci kilku paczek
+                   			byte[] encoded_splitted = Arrays.copyOfRange(encoded_list,i*1200,(i+1)*1200);
+                                	output.write(encoded_splitted);
                                                                
-                                try {
+                                	try {
                         			Thread.sleep(500);                 //robię małe przerwy w wysyłaniu każdej paczki z danymi, żeby uniknąć błędów
                         		} catch(InterruptedException ex) {
-                        		    Thread.currentThread().interrupt();
-                        		}
-                                  
+                        		    	Thread.currentThread().interrupt();
+                        		}                              
                             }                  		                   		                   			
                     	}                   	                  	
                     }
                     catch (IOException e1) {
                     	Platform.runLater(() ->messageLabel.setText("Connection failed"));
                     	
-					}
+		}
                    
                     });
                                                           
@@ -202,7 +198,6 @@ public class MainApp extends Application {
 
 	public static void main(String[] args) {
 		Application.launch(args);
-		//195.80.130.32
 	}
 
 
