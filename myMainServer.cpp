@@ -164,7 +164,7 @@ void* cthread(void *arg){
 
 int main(int argc, char** argv)
 {
-	pthread_t tid, guiThread;
+	pthread_t tid;
 	socklen_t slt;
 
 	int sock = socket(PF_INET,SOCK_STREAM,0);
